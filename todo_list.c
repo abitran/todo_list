@@ -63,25 +63,28 @@ void print_tasks(todo_list *todo) {
     fprintf(stderr, "File does not exist!\n");
     return;
   }
-  char date_buffer[20];
+  char due_buffer[20];
+  char created_buffer[20];
 
   task_node *current = todo->head;
   printf("\n================================= CURRENT TASKS (%zu) "
-         "=================================\n",
+         "==============================================\n",
          todo->size);
-  printf("%-4s | %-25s | %-25s | %-8s | %-12s\n", "ID", "Title", "Description",
-         "Status", "Due Date");
+  printf("%-4s | %-25s | %-25s | %-8s | %-12s | %-12s\n", "ID", "Title", "Description",
+         "Status", "Created Date", "Due Date");
   printf("---------------------------------------------------------------------"
-         "----------------\n");
+         "-----------------------------\n");
   while (current != NULL) {
-    struct tm *time_info = localtime(&current->due_date);
-    if (time_info != NULL) {
-      strftime(date_buffer, sizeof(date_buffer), "%d/%m/%Y", time_info);
+    struct tm *due = localtime(&current->due_date);
+    struct tm *created = localtime(&current->created_at);
+    if (due != NULL && created != NULL){
+      strftime(due_buffer, sizeof(due_buffer), "%d/%m/%Y", due);
+      strftime(created_buffer, sizeof(created_buffer), "%d/%m/%Y", created);
     } else {
-      snprintf(date_buffer, sizeof(date_buffer), "No date!\n");
+      snprintf(due_buffer, sizeof(due_buffer), "No date!\n");
     }
-    printf("%-4zu | %-25s | %-25s | %-8s | %-12s\n", current->id, current->name,
-           current->description, get_state(current->state), date_buffer);
+    printf("%-4zu | %-25s | %-25s | %-8s | %-12s | %-12s\n", current->id, current->name,
+           current->description, get_state(current->state), created_buffer, due_buffer);
     current = current->next;
   }
 }
