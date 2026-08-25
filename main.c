@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     return 1;
 
   load_todo_list(todo, DB_FILE);
-  while ((opt = getopt(argc, argv, "c:ld:u:")) != -1) {
+  while ((opt = getopt(argc, argv, "c:lvd:hu:")) != -1) {
     switch (opt) {
     case 'c': {
       char *task_name = optarg;
@@ -49,6 +49,13 @@ int main(int argc, char *argv[]) {
       }
       break;
     }
+    case 'h':
+      printf("Usage: Use -c to add a task, -d to delete a task, -l to list tasks, -v version number "
+             "-u to update tasks\n");
+      break;
+    case 'v':
+      printf("TodoList v1.0\n");
+      break;
     case 'l':
       print_tasks(todo);
       break;
