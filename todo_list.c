@@ -69,12 +69,12 @@ void print_tasks(todo_list *todo) {
 
   task_node *current = todo->head;
   printf("\n================================= CURRENT TASKS (%zu) "
-         "==============================================\n",
+         "===============================================\n",
          todo->size);
   printf("%-4s | %-25s | %-25s | %-8s | %-12s | %-12s\n", "ID", "Title", "Description",
          "Status", "Created Date", "Due Date");
-  printf("---------------------------------------------------------------------"
-         "-----------------------------\n");
+  printf("-----------------------------------------------------------------------"
+         "----------------------------\n");
   while (current != NULL) {
     struct tm *due = localtime(&current->due_date);
     if (due != NULL){
