@@ -1,4 +1,5 @@
 #include "todo_list.h"
+#include <time.h>
 #define DB_FILE "/tmp/tasks.dat"
 
 todo_list *init_todo_list() {
@@ -76,12 +77,16 @@ void print_tasks(todo_list *todo) {
          "-----------------------------\n");
   while (current != NULL) {
     struct tm *due = localtime(&current->due_date);
-    struct tm *created = localtime(&current->created_at);
-    if (due != NULL && created != NULL){
+    if (due != NULL){
       strftime(due_buffer, sizeof(due_buffer), "%d/%m/%Y", due);
-      strftime(created_buffer, sizeof(created_buffer), "%d/%m/%Y", created);
     } else {
       snprintf(due_buffer, sizeof(due_buffer), "No date!\n");
+    }
+    struct tm *created = localtime(&current->created_at);
+    if (created != NULL) {
+      strftime(created_buffer, sizeof(created_buffer), "%d/%m/%Y", created); 
+    } else {
+      snprintf(created_buffer, sizeof(created_buffer), "No date!\n");
     }
     printf("%-4zu | %-25s | %-25s | %-8s | %-12s | %-12s\n", current->id, current->name,
            current->description, get_state(current->state), created_buffer, due_buffer);
