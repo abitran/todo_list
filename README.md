@@ -2,7 +2,7 @@
 
 Simple todo list to add tasks with due date. \
 Main structure of the application usign a Linked List. \
-Persistent file record to a file in the /tmp directory. \
+Persistent file record to a file in the /tmp directory.  You can edit the code and replaced it with another location. \
 Still in progress, adding new functionalities. 
 
 ## Installation
