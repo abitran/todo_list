@@ -99,8 +99,10 @@ void load_todo_list(todo_list *todo, const char *filename) {
     return;
 
   FILE *fp = fopen(filename, "rb");
-  if (fp == NULL)
+  if (fp == NULL) {
+    fprintf(stderr, "Unable to open the file %s!  Try creating a task first\n", DB_FILE);
     return;
+  }
   if (fread(&(todo->next_id), sizeof(size_t), 1, fp) != 1) {
     fclose(fp);
     return;
